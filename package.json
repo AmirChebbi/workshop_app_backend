@@ -1,0 +1,13 @@
+{
+  "name": "expense-api",
+  "version": "1.0.0",
+  "description": "Minimal Express API for the Flutter expense tracker workshop",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -6,17 +6,17 @@ app.use(express.json());
 
 // In-memory store (resets on cold start — fine for a demo/showcase)
 let expenses = [
-  { id: randomUUID(), title: 'Groceries', amount: 42.5, category: 'Food', createdAt: new Date().toISOString() },
-  { id: randomUUID(), title: 'Bus ticket', amount: 1.2, category: 'Transport', createdAt: new Date().toISOString() },
-  { id: randomUUID(), title: 'Netflix', amount: 12.99, category: 'Subscription', createdAt: new Date().toISOString() },
+  { id: randomUUID(), title: 'Groceries', amount: 42.5, createdAt: new Date().toISOString() },
+  { id: randomUUID(), title: 'Bus ticket', amount: 1.2, createdAt: new Date().toISOString() },
+  { id: randomUUID(), title: 'Netflix', amount: 12.99, createdAt: new Date().toISOString() },
 ];
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({ message: 'Expense Tracker API is running 🚀' });
 });
 
-// GET /expenses?page=1&limit=10
-app.get('/expenses', (req, res) => {
+// GET /api/expenses?page=1&limit=10
+app.get('/api/expenses', (req, res) => {
   const page = Math.max(parseInt(req.query.page) || 1, 1);
   const limit = Math.max(parseInt(req.query.limit) || 10, 1);
 
@@ -39,8 +39,8 @@ app.get('/expenses', (req, res) => {
   });
 });
 
-// POST /expenses
-app.post('/expenses', (req, res) => {
+// POST /api/expenses
+app.post('/api/expenses', (req, res) => {
   const { title, amount, category } = req.body;
 
   if (!title || typeof amount !== 'number') {
@@ -59,8 +59,8 @@ app.post('/expenses', (req, res) => {
   res.status(201).json(expense);
 });
 
-// DELETE /expenses/:id
-app.delete('/expenses/:id', (req, res) => {
+// DELETE /api/expenses/:id
+app.delete('/api/expenses/:id', (req, res) => {
   const { id } = req.params;
   const index = expenses.findIndex((e) => e.id === id);
 

@@ -59,6 +59,25 @@ app.post('/api/expenses', (req, res) => {
   res.status(201).json(expense);
 });
 
+// PUT /api/expenses/:id
+app.put('/api/expenses/:id', (req, res) => {
+  const { id } = req.params;
+  const index = expenses.findIndex((e) => e.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Expense not found' });
+  }
+
+  const { title, amount } = req.body;
+
+  if (!title || typeof amount !== 'number') {
+    return res.status(400).json({ error: 'title (string) and amount (number) are required' });
+  }
+
+  expenses[index] = { ...expenses[index], title, amount };
+  res.json(expenses[index]);
+});
+
 // DELETE /api/expenses/:id
 app.delete('/api/expenses/:id', (req, res) => {
   const { id } = req.params;
